@@ -22,8 +22,19 @@ class Vec4:
 
     @staticmethod
     def delta_R_rapidity(p1, p2):
-        eta1 = np.arctanh(p1.pt/p1.p_space)
-        eta2 = np.arctanh(p2.pt/p2.p_space)
+        y1 = np.arctanh(p1.pz/p1.E)
+        y2 = np.arctanh(p2.pz/p2.E)
+        delta_y = y1 - y2
+
+        cos_delta_phi = np.dot((p1.px, p1.py), (p2.px, p2.py))/(p1.pt * p2.pt)
+        abs_delta_phi = np.arccos(cos_delta_phi)
+
+        return np.hypot(delta_y, abs_delta_phi)
+
+    @staticmethod
+    def delta_R_pseudorapidity(p1, p2):
+        eta1 = np.arctanh(p1.pz/p1.p_space)
+        eta2 = np.arctanh(p2.pz/p2.p_space)
         delta_eta = eta1 - eta2
 
         cos_delta_phi = np.dot((p1.px, p1.py), (p2.px, p2.py))/(p1.pt * p2.pt)
