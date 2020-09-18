@@ -17,7 +17,7 @@ class Vec4:
 
         E_squared = E ** 2
         m_squared = E ** 2 - p_space_squared
-        if m_squared < 0.
+        if m_squared < 0:
             raise ValueError("The values define spacelike vector")
         self.m = np.sqrt(m_squared)
 
@@ -27,8 +27,7 @@ class Vec4:
         eta2 = np.arctanh(p2.pt/p2.p_space)
         delta_eta = eta1 - eta2
 
-        phi1 = np.arctan2(p1.px, p1.py)
-        phi2 = np.arctan2(p2.px, p2.py)
-        delta_phi = phi1 - phi2
+        cos_delta_phi = np.dot((p1.px, p1.py), (p2.px, p2.py))/(p1.pt * p2.pt)
+        abs_delta_phi = np.arccos(cos_delta_phi)
 
-        return np.hypot(delta_eta, delta_phi)
+        return np.hypot(delta_eta, abs_delta_phi)
