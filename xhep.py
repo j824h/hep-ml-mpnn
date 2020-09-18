@@ -15,7 +15,6 @@ class Vec4:
         p_space_squared = pt_squared + pz ** 2
         self.p_space = np.sqrt(p_space_squared)
 
-        E_squared = E ** 2
         m_squared = E ** 2 - p_space_squared
         if m_squared < 0:
             raise ValueError("The values define spacelike vector")
